@@ -1,0 +1,39 @@
+body{
+    background-color:#1e1e2f;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+.input-field {
+    /* Set the width to 100% of its parent container */
+    /* This makes the input fields responsive within their layout context */
+    width: 100%;
+
+    /* Add padding inside the input field for text */
+    /* 10px on top/bottom, 12px on left/right */
+    padding: 10px 12px; 
+
+    /* Add some margin for spacing around the input fields */
+    /* 8px on top (e.g., to space from a label above it) */
+    /* 0px on right/left (let parent container handle side spacing if needed) */
+    /* 16px on bottom (to space from the next element or group) */
+    margin: 8px 0 16px 0;
+
+    /* Define the border: 1px thick, solid style, light grey color */
+    border: 1px solid #ccc;
+
+    /* Add rounded corners to the input fields */
+    border-radius: 4px;
+
+    /* Set the font size for text inside the input fields */
+    /* 1rem usually matches the body font size, adjust as needed */
+    font-size: 1rem; 
+
+    /* Ensure consistent background color, typically white */
+    background-color: #fff;
+
+    /* IMPORTANT: Include padding and border in the element's total width and height */
+    /* This prevents the input from becoming wider than 100% when padding/border are added */
+    box-sizing: border-box; 
+
+    /* Optional: Slightly change text color for input fields */
+    /* color: #333; */ 
+}
