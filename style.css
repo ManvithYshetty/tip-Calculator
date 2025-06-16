@@ -2,6 +2,32 @@ body{
     background-color:#1e1e2f;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
+
+.calculator-container{
+    background-color: #FFFFFF;  /* White background to make the calculator card stand out */
+    padding: 32px;              /* Generous internal spacing around the calculator's content */
+    border-radius: 15px;        /* Soft, rounded corners for the card */
+    
+    /* Width and Centering */
+    max-width: 800px;           /* Maximum width the calculator will stretch to on large screens */
+    width: 90%;                 /* On smaller screens, it will take up 90% of the viewport width */
+                                /* This helps with responsiveness before detailed media queries. */
+    margin: 50px auto;          /* 50px margin on top and bottom, 'auto' for left and right centers it horizontally */
+
+    /* Visual Polish */
+    /* A subtle shadow: x-offset, y-offset, blur-radius, spread-radius (optional), color */
+    /* The color is a semi-transparent version of our dark cyan (#00474B) */
+    box-shadow: 0 15px 30px rgba(0, 71, 75, 0.15); 
+
+    /* Important for consistent sizing when padding is used with width/max-width */
+    box-sizing: border-box; 
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+}
+.input-section,.output-section{
+    flex: 1;
+}
 .input-field {
     /* Set the width to 100% of its parent container */
     /* This makes the input fields responsive within their layout context */
@@ -37,3 +63,146 @@ body{
     /* Optional: Slightly change text color for input fields */
     /* color: #333; */ 
 }
+.tip-custom-input {
+    /* You could add more specific styles here, e.g., a different placeholder color */
+    /* Or adjust its width if it's part of a grid with buttons */
+}
+label,
+.form-control > p { /* Targets all <label> elements and <p> elements that are direct children of .form-control */
+    display: block;         /* Ensures the label takes up its own line and allows margin-bottom */
+    font-size: 0.9rem;      /* Makes labels slightly smaller than input text (1rem) */
+    font-weight: 600;       /* Semi-bold for better visual prominence */
+    color: #4B5A6A;         /* A cool, dark greyish-blue for good readability and a modern feel */
+    margin-bottom: 6px;     /* Adds 6px of space below the label, before the input field or button group */
+}
+
+
+/* NEW: Styling for the tip percentage buttons */
+.tip-percent-btn {
+    /* Dimensions and Spacing */
+    padding: 10px;              
+    width: 100%;  
+    /* Generous padding for a larger click area and visual appeal             
+    /* Make buttons take full width of their grid cell (when grid is applied) */
+    /* For now, with multiple buttons in a row, this will be overridden by flex/grid later. */
+    /* If not using grid/flex on parent for a while, you might set a specific width or use inline-block. */
+    
+    /* Appearance */
+    background-color: #00474B;  /* A very dark desaturated cyan - primary button color */
+    color: #FFF;                /* White text for high contrast on the dark background */
+    border: none;               /* No border for a flatter, modern look */
+    border-radius: 4px;        /* Rounded corners, consistent with input fields */
+
+    /* Typography */
+    font-size: 1.1rem;          /* Slightly larger font size for button text */
+    font-weight: 700;           /* Bold text to make it prominent */
+    text-align: center;         /* Ensure text is centered within the button */
+
+    /* Interactivity */
+    cursor: pointer;            /* Changes cursor to a hand icon on hover */
+    transition: background-color 0.4s ease-in-out, color 0.2s ease-in-out; /* Smooth transition for hover/active states */
+}
+
+/* Hover state for tip percentage buttons */
+.tip-percent-btn:hover {
+    background-color: #26C2AD; /* A lighter, brighter teal on hover */
+    color: #00474B;           /* Dark text for contrast on the lighter hover background */
+}
+
+/* Active (selected) state for tip percentage buttons */
+/* This class will be added/removed by JavaScript when a button is clicked */
+.tip-percent-btn.active {
+    background-color: #9FE8DF; /* A very light teal/cyan - active state background */
+    color: #00474B;           /* Dark text for contrast */
+}
+
+.output-section {
+    background-color: #00474B; /* Dark desaturated cyan, for a cohesive "display panel" feel */
+    padding: 30px 25px;        /* Generous padding inside the output section (top/bottom, left/right) */
+    border-radius: 8px;        /* Rounded corners for the output panel, slightly larger than inputs for distinction */
+    display: flex;
+    flex-direction: column;      /* Adds space between the input section and this output panel */
+    justify-content: space-between;
+    gap: 20px;
+}
+
+/* Styling for each line of result (e.g., Tip Amount / person) */
+/* This will be further enhanced with Flexbox in the layout step for side-by-side alignment */
+.result-line {
+    /* For now, we define spacing between result lines. Layout comes later. */
+    /* margin-bottom: 25px; Space between each result line */
+}
+
+/* Ensure the last result line has appropriate spacing before the reset button */
+.output-section .result-line:last-of-type { 
+    /* margin-bottom: 30px;  */
+}
+
+/* Styling for the labels within the result lines (e.g., "Tip Amount", "Total") */
+.result-label p {
+    color: #FFFFFF;             /* White text for high contrast on the dark background */
+    font-size: 0.9rem;          /* Clear, readable size for the label */
+    margin: 0;                  /* Remove default paragraph margin to control spacing precisely */
+    font-weight: 600;           /* Semi-bold for clarity */
+}
+
+/* Styling for the "/ person" sub-text in result labels */
+.result-label span {
+    color: #7FA8A9;             /* A muted, lighter cyan for the sub-text, less prominent */
+    font-size: 0.8rem;          /* Smaller than the main result label text */
+    display: block;             /* Ensures it appears on a new line below the main label text (e.g., "Tip Amount") */
+                                /* This complements the <p> tag used for the main label part. */
+}
+
+/* Styling for the actual calculated values (e.g., $0.00 in the spans with IDs) */
+.result-value span { /* This targets both #tip-amount-display and #total-amount-display */
+    color: #26C2AD;             /* Bright teal, stands out clearly (same as tip button hover/active) */
+    font-size: 2.2rem;          /* Significantly larger font size to make results the focal point */
+    font-weight: 700;           /* Bold font weight to make results prominent */
+    display: block;             /* Ensures it behaves as a block for alignment purposes */
+    text-align: right;          /* Aligns monetary values to the right, which is standard for financial displays */
+                                /* This text-align applies if .result-value div is taking full width or if span is block */
+}
+
+.reset-btn {
+    /* Dimensions and Spacing */
+    width: 100%;                /* Makes the button span the full width of the output-section */
+    padding: 12px;              /* Comfortable padding for a good click target */
+    /* margin-top: 10px; */     /* Ensures space from the last result-line if its margin-bottom is not enough. Let's use the result-line:last-of-type margin for now, but this is an option. */
+                                /* The margin-bottom: 30px on .result-line:last-of-type should suffice. */
+
+    /* Appearance */
+    background-color: #26C2AD;  /* Bright teal, making it stand out in the dark output panel (same as result value color) */
+    color: #00474B;             /* Dark cyan text, for high contrast on the bright teal button */
+    border: none;               /* No border for a clean look */
+    border-radius: 4px;         /* Consistent rounded corners */
+
+    /* Typography */
+    font-size: 1.1rem;          /* Consistent font size with tip buttons */
+    font-weight: 700;           /* Bold text */
+    text-transform: uppercase;  /* Makes "RESET" text more prominent and command-like */
+    text-align: center;         /* Ensures text is centered */
+
+    /* Interactivity */
+    cursor: pointer;            /* Hand icon on hover */
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out; /* Smooth transitions */
+}
+
+.reset-btn:hover {
+    background-color: #9FE8DF;  /* A very light teal, similar to active tip buttons, for hover feedback */
+    color: #00474B;             /* Dark text remains for contrast */
+}
+
+.reset-btn:active{
+    background-color: #00474B;  /* Dark cyan, like the output section background */
+    color: #9FE8DF; 
+    transform: scale(0.97);
+}
+.reset-btn {
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, transform 0.1s ease-in-out;
+}
+ 
+
+
+
+
