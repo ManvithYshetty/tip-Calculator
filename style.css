@@ -4,10 +4,11 @@
     height: 100vh;   
     margin: 0; 
 } */
-html,body {
+body {
   height: 100%;                  /* Ensure both html & body take full viewport height */
   margin: 0;                     /* Remove default margin */
-  padding: 0;                    /* Remove default padding */
+  /* padding: 0; */
+  padding :130px;                   /* Remove default padding */
   display: flex;
   justify-content: center;      /* Center horizontally */
   align-items: center;          /* Center vertically */
@@ -86,11 +87,11 @@ label,
     color: #455A64;   /* A cool, dark greyish-blue for good readability and a modern feel*/
     margin-bottom: 6px;     /* Adds 6px of space below the label, before the input field or button group */
 }
-@media (prefers-color-scheme:light) {
+/* @media (prefers-color-scheme:light) {
   .form-control > p {
     color: #455A64;
   }
-}
+} */
 /* NEW: Styling for the tip percentage buttons */
 .tip-buttons-container {
     display: grid;                      /* Make this a grid container */
@@ -157,9 +158,7 @@ label,
 }
 
 /* Ensure the last result line has appropriate spacing before the reset button */
-.output-section .result-line:last-of-type { 
-    /* margin-bottom: 30px;  */
-}
+
 
 /* Styling for the labels within the result lines (e.g., "Tip Amount", "Total") */
 .result-label p {
