@@ -19,47 +19,64 @@ console.log('Total Amount Id',TotalAmountDisplay)
 const ResetButton=document.getElementById('reset-button')
 console.log('Reset Button Id',ResetButton)
 
+console.clear();
 
-billInput.addEventListener('input',(calculateTip)=>{
-
-    const currentBillValue=billInput.value;
-    console.clear();// clear the unwanted flood in the console 
-    console.log('Bill Input Changed , current Value:',currentBillValue);
-   
-});
+billInput.addEventListener('input',calculateTip);
 
 tipButton.forEach((button)=>{
-    button.addEventListener('click',(calculateTip) => {
-        const clickedButton=calculateTip.target;
-        const tipPercentage=clickedButton.value;
-        console.log('Tip Button Clicked',clickedButton.textContent);
-        if(tipPercentage){
-            console.log('Tip Selected Value :',tipPercentage + '%');
+    button.addEventListener('click',(event) => {
+       const clickedButton=event.target;
+       const tipPercent=clickedButton.dataset.tip;
+       tipButton.forEach(button => button.classList.remove('active'));
+       clickedButton.classList.add('active');
+       CustomInput.value='';
+       if(!tipPercent){
+            console.warn('Percent Button Not Clicked');
         }
-        else{
-            console.warn('Unknown Value Clicked Not Present ')
-        }
+       calculateTip();
     });
 
 });
 
-CustomInput.addEventListener('change',(event)=>{
+CustomInput.addEventListener('change',()=>{
 
-    const CustomTipValue=event.target.value;
-    console.log('Custom Input Changed,CurrentValue:',CustomTipValue + "%");
+    tipButton.forEach(btn => btn.classList.remove('active'));
+    console.log(`Custom tip: ${CustomInput.value}%`); // Example temporary log
     calculateTip();
 
 });
 
-PeopleInput.addEventListener('input',(calculateTip)=>{
-
-    const NumberOfPeople=calculateTip.target.value;
-    console.log('Number Of People Input Changed ,CurrentValue:',NumberOfPeople);
-
-});
+PeopleInput.addEventListener('input',calculateTip);
 
 function calculateTip(){
-    console.log('function Executed');
+    // console.log('Executing Calculator-TIP');
+    const billInputStr=billInput.value;
+    const peopleValueStr=PeopleInput.value;
+    const customInputStr=CustomInput.value;
+    let selectedButtonTipStr = null; // Use null to indicate no button is active
+    const activeButton=document.querySelector('.tip-percent-btn.active');
+    if(activeButton){
+        selectedButtonTipStr=activeButton.dataset.tip;
+    }
+
+    console.log("Raw Input - Bill:", billInputStr);
+    console.log("Raw Input - People:", peopleValueStr);
+    console.log("Raw Input - Custom Tip:", customInputStr);
+    console.log("Raw Input - Selected Button Tip:", selectedButtonTipStr);
+
+    const billAmount=parseFloat(billInputStr);
+    const NoOfPeople=parseFloat(peopleValueStr);
+    const customTipPercent=parseFloat(customInputStr);
+    const  selectedButtonTipPercent=selectedButtonTipStr?parseFloat(selectedButtonTipStr):null;
+
+    console.log("Converted Number - Bill Amount:", billAmount, `(Type: ${typeof billAmount})`);
+    console.log("Converted Number - Number of People:", NoOfPeople, `(Type: ${typeof NoOfPeople})`);
+    console.log("Converted Number - Custom Tip %:", customTipPercent, `(Type: ${typeof customTipPercent})`);
+    console.log("Converted Number - Selected Button Tip %:", selectedButtonTipPercent, `(Type: ${typeof selectedButtonTipPercent})`); // Will be null if no button active, NaN if button data invalid, or a number
+
 };
+
+
+
 
 
