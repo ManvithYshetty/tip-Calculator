@@ -20,7 +20,7 @@ const ResetButton=document.getElementById('reset-button')
 console.log('Reset Button Id',ResetButton)
 
 
-billInput.addEventListener('input',(event)=>{
+billInput.addEventListener('input',(calculateTip)=>{
 
     const currentBillValue=billInput.value;
     console.clear();// clear the unwanted flood in the console 
@@ -29,8 +29,8 @@ billInput.addEventListener('input',(event)=>{
 });
 
 tipButton.forEach((button)=>{
-    button.addEventListener('click',(event) => {
-        const clickedButton=event.target;
+    button.addEventListener('click',(calculateTip) => {
+        const clickedButton=calculateTip.target;
         const tipPercentage=clickedButton.value;
         console.log('Tip Button Clicked',clickedButton.textContent);
         if(tipPercentage){
@@ -51,9 +51,9 @@ CustomInput.addEventListener('change',(event)=>{
 
 });
 
-PeopleInput.addEventListener('input',(event)=>{
+PeopleInput.addEventListener('input',(calculateTip)=>{
 
-    const NumberOfPeople=event.target.value;
+    const NumberOfPeople=calculateTip.target.value;
     console.log('Number Of People Input Changed ,CurrentValue:',NumberOfPeople);
 
 });
@@ -61,4 +61,5 @@ PeopleInput.addEventListener('input',(event)=>{
 function calculateTip(){
     console.log('function Executed');
 };
+
 
