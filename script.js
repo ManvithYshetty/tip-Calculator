@@ -74,6 +74,37 @@ function calculateTip(){
     console.log("Converted Number - Custom Tip %:", customTipPercent, `(Type: ${typeof customTipPercent})`);
     console.log("Converted Number - Selected Button Tip %:", selectedButtonTipPercent, `(Type: ${typeof selectedButtonTipPercent})`); // Will be null if no button active, NaN if button data invalid, or a number
 
+    let actualPercent=0;
+    if(!isNaN(customTipPercent) && customTipPercent >= 0){
+        actualPercent=customTipPercent;
+        console.log('Using Custom Button Percentage',actualPercent);
+    }
+    else if(selectedButtonTipPercent != null && !isNaN(selectedButtonTipPercent) && selectedButtonTipPercent >= 0){
+        actualPercent=selectedButtonTipPercent;
+        console.log('Using Selected Button Percentage',selectedButtonTipPercent);
+    }
+    else{
+        console.log('Using Default Percentage :0');
+    }
+
+    let totalTipAmount=0;
+    if(!isNaN(billAmount) && billAmount >= 0){
+        totalTipAmount=billAmount * (actualPercent / 100);
+    }
+    console.log("Calculated - Total Tip Amount:", totalTipAmount, `(Type: ${typeof totalTipAmount})`);
+
+    const totalBillAmount=billAmount+totalTipAmount;
+    console.log('Total Amount Including Tip =',totalBillAmount,`(Type: ${typeof totalBillAmount})`);
+
+    let TipPerPerson=0;
+    if( !isNaN(totalTipAmount) && !isNaN(NoOfPeople) && NoOfPeople > 0){
+        TipPerPerson=totalTipAmount/NoOfPeople;
+    }
+    else{
+        console.warn("Cannot calculate tip per person. Invalid inputs (Tip:", totalTipAmount, ", People:", NoOfPeople, ")");   
+    }
+    console.log('Tip Per Person Calculated',TipPerPerson,`(Type: ${typeof TipPerPerson})`);
+
 };
 
 
