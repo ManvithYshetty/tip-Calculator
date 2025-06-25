@@ -96,16 +96,60 @@ function calculateTip(){
     const totalBillAmount=billAmount+totalTipAmount;
     console.log('Total Amount Including Tip =',totalBillAmount,`(Type: ${typeof totalBillAmount})`);
 
-    let TipPerPerson=0;
+    let tipPerPerson=0;
     if( !isNaN(totalTipAmount) && !isNaN(NoOfPeople) && NoOfPeople > 0){
-        TipPerPerson=totalTipAmount/NoOfPeople;
+        tipPerPerson=totalTipAmount/NoOfPeople;
     }
     else{
         console.warn("Cannot calculate tip per person. Invalid inputs (Tip:", totalTipAmount, ", People:", NoOfPeople, ")");   
     }
-    console.log('Tip Per Person Calculated',TipPerPerson,`(Type: ${typeof TipPerPerson})`);
+    console.log('Tip Per Person Calculated',tipPerPerson,`(Type: ${typeof tipPerPerson})`);
+
+    let totalAmountPerPerson=0;
+    if( !isNaN(totalBillAmount) && !isNaN(NoOfPeople) &&  NoOfPeople > 0){
+        totalAmountPerPerson=totalBillAmount/NoOfPeople;
+    }
+    else{
+        console.warn("Cannot calculate total per person. Invalid inputs (Total Bill:", totalBillAmount, ", People:", NoOfPeople, ")");
+    }
+    console.log("Calculated - Total Amount Per Person:", totalAmountPerPerson, `(Type: ${typeof totalAmountPerPerson})`);
+
+    console.log({ // Logging as an object for better readability in console
+        billAmount,
+        NoOfPeople,
+        actualPercent,
+        totalTipAmount,
+        totalBillAmount,
+        tipPerPerson,
+        totalAmountPerPerson
+    });
+
+    const formattedTipAmount=tipPerPerson.toFixed(2); // for after  two decimal points 
+    const formattedTotalAmount=totalAmountPerPerson.toFixed(2);
+
+    const displayTipAmount = `₹${formattedTipAmount}`;
+    const displayTotalAmount = `₹${formattedTotalAmount}`;
+
+    console.log("Formatted for Display - Tip Amount Per Person:", displayTipAmount);
+    console.log("Formatted for Display - Total Amount Per Person:", displayTotalAmount);
+
+    if(TipAmountDisplay){
+        TipAmountDisplay.textContent=displayTipAmount;
+    }
+    else{
+        console.error('Error: tipAmountDisplay element not found in the DOM.');
+    }
+
+    if(TotalAmountDisplay){
+        TotalAmountDisplay.textContent=displayTotalAmount;
+    }
+    else{
+        console.error('Error: totalAmountDisplay element not found in the DOM.');
+    }
 
 };
+
+document.addEventListener('DOMContentLoaded',calculateTip);
 
 
 
