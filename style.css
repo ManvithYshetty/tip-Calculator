@@ -227,9 +227,19 @@ label,
     color: #888; /* Or use a cyanish hue for consistency */
     opacity: 0.8;
 }
+.input-field.error {
+    border: 2px solid #fda4af; /* Soft warm rose */
+    background-color: #fff1f2; /* light pinkish background */
+    outline: none;
+    box-shadow: 0 0 6px rgba(253, 164, 175, 0.4);
+    transition: all 0.3s ease-in-out;
+}
+
+.input-field.error:focus {
+    box-shadow: 0 0 10px rgba(253, 164, 175, 0.6);
+}
 
  
-
 
 
 

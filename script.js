@@ -19,7 +19,7 @@ console.log('Total Amount Id',TotalAmountDisplay)
 const ResetButton=document.getElementById('reset-button')
 console.log('Reset Button Id',ResetButton)
 
-console.clear();
+
 
 billInput.addEventListener('input',calculateTip);
 
@@ -48,6 +48,35 @@ CustomInput.addEventListener('change',()=>{
 
 PeopleInput.addEventListener('input',calculateTip);
 
+if(ResetButton){
+    ResetButton.addEventListener('click', () =>{
+        console.log('Reset Button Clicked')
+    });
+}else{
+    console.error('no reset done')
+}
+
+let billTouched = false;
+let peopleTouched = false;
+let customTouched = false;
+
+billInput.addEventListener('input', () => {
+    billTouched = true;
+    calculateTip();
+});
+
+PeopleInput.addEventListener('input', () => {
+    peopleTouched = true;
+    calculateTip();
+});
+
+CustomInput.addEventListener('input', () => {
+    customTouched = true;
+    calculateTip();
+});
+
+
+
 function calculateTip(){
     // console.log('Executing Calculator-TIP');
     const billInputStr=billInput.value;
@@ -59,20 +88,28 @@ function calculateTip(){
         selectedButtonTipStr=activeButton.dataset.tip;
     }
 
-    console.log("Raw Input - Bill:", billInputStr);
-    console.log("Raw Input - People:", peopleValueStr);
-    console.log("Raw Input - Custom Tip:", customInputStr);
-    console.log("Raw Input - Selected Button Tip:", selectedButtonTipStr);
+    // console.log("Raw Input - Bill:", billInputStr);
+    // console.log("Raw Input - People:", peopleValueStr);
+    // console.log("Raw Input - Custom Tip:", customInputStr);
+    // console.log("Raw Input - Selected Button Tip:", selectedButtonTipStr);
 
     const billAmount=parseFloat(billInputStr);
     const NoOfPeople=parseFloat(peopleValueStr);
     const customTipPercent=parseFloat(customInputStr);
     const  selectedButtonTipPercent=selectedButtonTipStr?parseFloat(selectedButtonTipStr):null;
 
-    console.log("Converted Number - Bill Amount:", billAmount, `(Type: ${typeof billAmount})`);
-    console.log("Converted Number - Number of People:", NoOfPeople, `(Type: ${typeof NoOfPeople})`);
-    console.log("Converted Number - Custom Tip %:", customTipPercent, `(Type: ${typeof customTipPercent})`);
-    console.log("Converted Number - Selected Button Tip %:", selectedButtonTipPercent, `(Type: ${typeof selectedButtonTipPercent})`); // Will be null if no button active, NaN if button data invalid, or a number
+    //INPUT  VALIDATION SECTION
+
+    let isBillValid= !isNaN(billAmount) && billAmount >= 0;
+    console.log(`Validation - Bill Amount (${billAmount}) Is Valid: ${isBillValid}`);
+
+    let isTipValid=false;
+    
+
+    // console.log("Converted Number - Bill Amount:", billAmount, `(Type: ${typeof billAmount})`);
+    // console.log("Converted Number - Number of People:", NoOfPeople, `(Type: ${typeof NoOfPeople})`);
+    // console.log("Converted Number - Custom Tip %:", customTipPercent, `(Type: ${typeof customTipPercent})`);
+    // console.log("Converted Number - Selected Button Tip %:", selectedButtonTipPercent, `(Type: ${typeof selectedButtonTipPercent})`); // Will be null if no button active, NaN if button data invalid, or a number
 
     let actualPercent=0;
     if(!isNaN(customTipPercent) && customTipPercent >= 0){
@@ -87,42 +124,60 @@ function calculateTip(){
         console.log('Using Default Percentage :0');
     }
 
+    isTipValid= !isNaN(actualPercent) && actualPercent >= 0;
+    console.log(`Validation - Tip percent (${actualPercent}) isValid: ${isTipValid}`);
+
+    const isCustomTipInputValid = customInputStr === '' || (!isNaN(customTipPercent) && customTipPercent >= 0);
+    console.log(`Validation - Custom Tip Input (${customTipPercent}) Is Valid/Empty: ${isCustomTipInputValid}`);
+
     let totalTipAmount=0;
-    if(!isNaN(billAmount) && billAmount >= 0){
+    if(isBillValid && isTipValid){
         totalTipAmount=billAmount * (actualPercent / 100);
     }
     console.log("Calculated - Total Tip Amount:", totalTipAmount, `(Type: ${typeof totalTipAmount})`);
 
-    const totalBillAmount=billAmount+totalTipAmount;
+    let totalBillAmount=0;
+    if(isBillValid){
+        totalBillAmount=billAmount+totalTipAmount;
+    }
     console.log('Total Amount Including Tip =',totalBillAmount,`(Type: ${typeof totalBillAmount})`);
 
+    let isPersonValid= !isNaN(NoOfPeople) && NoOfPeople > 0 && Number.isInteger(NoOfPeople);
+    console.log(`Validation - Number of People (${NoOfPeople}) Is Valid Integer: ${isPersonValid}`);
+
     let tipPerPerson=0;
-    if( !isNaN(totalTipAmount) && !isNaN(NoOfPeople) && NoOfPeople > 0){
-        tipPerPerson=totalTipAmount/NoOfPeople;
-    }
-    else{
-        console.warn("Cannot calculate tip per person. Invalid inputs (Tip:", totalTipAmount, ", People:", NoOfPeople, ")");   
-    }
-    console.log('Tip Per Person Calculated',tipPerPerson,`(Type: ${typeof tipPerPerson})`);
-
     let totalAmountPerPerson=0;
-    if( !isNaN(totalBillAmount) && !isNaN(NoOfPeople) &&  NoOfPeople > 0){
-        totalAmountPerPerson=totalBillAmount/NoOfPeople;
+     if(isBillValid && isPersonValid && isTipValid){
+        if(!isNaN(totalBillAmount)){
+            tipPerPerson=totalTipAmount/NoOfPeople;
+            totalAmountPerPerson=totalBillAmount/NoOfPeople;
+        }
+        else{
+            tipPerPerson=0;
+            totalAmountPerPerson=0;
+            console.warn("Per-person calculation aborted: totalBillAmount was NaN despite other flags.");
+        }
     }
     else{
-        console.warn("Cannot calculate total per person. Invalid inputs (Total Bill:", totalBillAmount, ", People:", NoOfPeople, ")");
+         if (!isPersonValid) {
+             console.warn(`Cannot calculate per-person amounts. Number of People (${NoOfPeople}) is not a positive integer.`);
+        } else if (!isBillValid) {
+             console.warn("Cannot calculate per-person amounts due to invalid Bill Amount.");
+        } else if (!isTipValid) {
+             console.warn("Cannot calculate per-person amounts due to invalid Tip Percentage.");
+        }
     }
-    console.log("Calculated - Total Amount Per Person:", totalAmountPerPerson, `(Type: ${typeof totalAmountPerPerson})`);
-
-    console.log({ // Logging as an object for better readability in console
-        billAmount,
-        NoOfPeople,
-        actualPercent,
-        totalTipAmount,
-        totalBillAmount,
-        tipPerPerson,
-        totalAmountPerPerson
-    });
+   
+   
+    // console.log({ // Logging as an object for better readability in console
+    //     billAmount,
+    //     NoOfPeople,
+    //     actualPercent,
+    //     totalTipAmount,
+    //     totalBillAmount,
+    //     tipPerPerson,
+    //     totalAmountPerPerson
+    // });
 
     const formattedTipAmount=tipPerPerson.toFixed(2); // for after  two decimal points 
     const formattedTotalAmount=totalAmountPerPerson.toFixed(2);
@@ -146,11 +201,22 @@ function calculateTip(){
     else{
         console.error('Error: totalAmountDisplay element not found in the DOM.');
     }
+    validate(isBillValid,isPersonValid,isCustomTipInputValid);
+};
 
+function validate(isBillValid,isPersonValid,isCustomTipInputValid){
+    if(billInput){
+        billInput.classList.toggle('error', billTouched && !isBillValid);
+    }
+    if(PeopleInput){
+        PeopleInput.classList.toggle('error', peopleTouched && !isPersonValid);
+    }
+    if(CustomInput){
+        CustomInput.classList.toggle('error', customTouched && !isCustomTipInputValid);
+    }
 };
 
 document.addEventListener('DOMContentLoaded',calculateTip);
-
 
 
 
