@@ -50,10 +50,10 @@ PeopleInput.addEventListener('input',calculateTip);
 
 if(ResetButton){
     ResetButton.addEventListener('click', () =>{
-        console.log('Reset Button Clicked')
+        resetCalculator();
     });
 }else{
-    console.error('no reset done')
+    console.error('no reset done');
 }
 
 let billTouched = false;
@@ -147,7 +147,7 @@ function calculateTip(){
 
     let tipPerPerson=0;
     let totalAmountPerPerson=0;
-     if(isBillValid && isPersonValid && isTipValid){
+    if(isBillValid && isPersonValid && isTipValid){
         if(!isNaN(totalBillAmount)){
             tipPerPerson=totalTipAmount/NoOfPeople;
             totalAmountPerPerson=totalBillAmount/NoOfPeople;
@@ -216,6 +216,55 @@ function validate(isBillValid,isPersonValid,isCustomTipInputValid){
     }
 };
 
+function resetCalculator(){
+    
+    if(billInput){
+        billInput.value= '';
+    }
+    if(CustomInput){
+        CustomInput.value= '';
+    }
+    if(tipButton && tipButton.length > 0){
+        tipButton.forEach(button => {
+            button.classList.remove('active');
+        });
+    }
+    if(PeopleInput){
+        PeopleInput.value= '';
+    }
+    if(TipAmountDisplay){
+        TipAmountDisplay.textContent='₹0.00';
+    }
+    if(TotalAmountDisplay){
+        TotalAmountDisplay.textContent='₹0.00';
+    }
+
+    if(billInput){
+        billInput.classList.remove('error');
+      
+    }
+    if (CustomInput) {
+        CustomInput.classList.remove('error');
+    }
+    if (PeopleInput) {
+        PeopleInput.classList.remove('error');
+       
+    }
+    billInput.style.boxShadow = 'none';
+    PeopleInput.style.boxShadow = 'none';
+    CustomInput.style.boxShadow = 'none';
+
+    billInput.blur();
+    PeopleInput.blur();
+    CustomInput.blur();
+
+    billTouched = false;
+    peopleTouched = false;
+    customTouched = false;
+    
+    console.log('Reset Done Sucessfully');
+
+}
 document.addEventListener('DOMContentLoaded',calculateTip);
 
 

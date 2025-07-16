@@ -232,7 +232,7 @@ label,
     background-color: #fff1f2; /* light pinkish background */
     outline: none;
     box-shadow: 0 0 6px rgba(253, 164, 175, 0.4);
-    transition: all 0.3s ease-in-out;
+    transition: all 0.25s ease-in-out;
 }
 
 .input-field.error:focus {
