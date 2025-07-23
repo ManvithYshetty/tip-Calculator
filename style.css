@@ -1,4 +1,4 @@
-/* ========== Base Font Sizing ========== */
+/*changes*/
 html {
   font-size: 16px;
 }
@@ -15,7 +15,6 @@ html {
   }
 }
 
-/* ========== Body Layout Fix ========== */
 html, body {
   margin: 0;
   padding: 0;
@@ -35,7 +34,6 @@ body {
 }
 
 
-/* ========== Calculator Container ========== */
 .calculator-container {
   display: flex;
   flex-direction: row;
@@ -57,7 +55,6 @@ body {
   flex: 1;
 }
 
-/* ========== Input Fields ========== */
 .input-field {
   width: 100%;
   padding: 10px 12px;
@@ -70,7 +67,6 @@ body {
   box-sizing: border-box;
 }
 
-/* ========== Labels ========== */
 label,
 .form-control > p {
   display: block;
@@ -80,7 +76,6 @@ label,
   margin-bottom: 6px;
 }
 
-/* ========== Tip Buttons Grid ========== */
 .tip-buttons-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -112,7 +107,6 @@ label,
   color: #00474B;
 }
 
-/* ========== Custom Tip Input ========== */
 .tip-custom-input {
   all: unset;
   padding: 12px 0;
@@ -129,7 +123,6 @@ label,
   border: 1.5px solid #ccc;
 }
 
-/* ========== Output Section ========== */
 .output-section {
   background-color: #00474B;
   padding: 30px 25px;
@@ -138,11 +131,8 @@ label,
   flex-direction: column;
   justify-content: space-between;
   gap: 20px;
-  box-sizing: border-box; /* ✅ fix */
-  overflow: hidden;        /* ✅ fix */
-}
+  box-sizing: border-box;   overflow: hidden;        }
 
-/* ========== Result Display Lines ========== */
 .result-line {
   display: flex;
   justify-content: space-between;
@@ -170,7 +160,6 @@ label,
   text-align: right;
 }
 
-/* ========== Reset Button ========== */
 .reset-btn {
   width: 100%;
   padding: 12px;
@@ -197,13 +186,11 @@ label,
   transform: scale(0.97);
 }
 
-/* ========== Placeholder Styling ========== */
 ::placeholder {
   color: #888;
   opacity: 0.8;
 }
 
-/* ========== Error Handling ========== */
 .input-field.error {
   border: 2px solid #fda4af;
   background-color: #fff1f2;
@@ -216,7 +203,6 @@ label,
   box-shadow: 0 0 10px rgba(253, 164, 175, 0.6);
 }
 
-/* ========== Mobile Layout ========== */
 @media screen and (max-width: 600px) {
   body {
     justify-content: flex-start;
@@ -238,10 +224,7 @@ label,
 
   .output-section {
     margin-bottom: 0;
-    padding: 20px;           /* ✅ updated */
-    box-sizing: border-box;  /* ✅ ensure padding fits */
-    overflow: hidden;        /* ✅ fix overflow issue */
-  }
+    padding: 20px;               box-sizing: border-box;      overflow: hidden;          }
 
   .result-value span {
     font-size: 1.5rem;
@@ -250,8 +233,7 @@ label,
   .reset-btn {
     font-size: 1rem;
     padding: 10px;
-    margin-top: 10px;       /* ✅ spacing fix */
-  }
+    margin-top: 10px;         }
 
   .tip-percent-btn,
   .tip-custom-input {
@@ -264,7 +246,6 @@ label,
   }
 }
 
-/* ========== Tablet Layout ========== */
 @media screen and (max-width: 1024px) and (min-width: 601px) {
   .calculator-container {
     flex-direction: column;
@@ -296,7 +277,6 @@ label,
     padding: 10px;
   }
 }
-/* ========== Footer Styling ========== */
 .footer {
   text-align: center;
   margin-top: 30px;

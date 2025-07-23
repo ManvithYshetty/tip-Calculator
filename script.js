@@ -1,7 +1,8 @@
+// changes
 const billInput=document.getElementById('bill');
 console.log('Bill Input Element',billInput)
 
-const tipButton=document.querySelectorAll('.tip-percent-btn')   //selets all of the classes in the webpage present rather than first occuring 
+const tipButton=document.querySelectorAll('.tip-percent-btn')  
 console.log('Tip Buttons Nodelist',tipButton)
 
 const CustomInput=document.getElementById('custom-tip')
@@ -41,7 +42,7 @@ tipButton.forEach((button)=>{
 CustomInput.addEventListener('change',()=>{
 
     tipButton.forEach(btn => btn.classList.remove('active'));
-    console.log(`Custom tip: ${CustomInput.value}%`); // Example temporary log
+    console.log(`Custom tip: ${CustomInput.value}%`);
     calculateTip();
 
 });
@@ -78,39 +79,22 @@ CustomInput.addEventListener('input', () => {
 
 
 function calculateTip(){
-    // console.log('Executing Calculator-TIP');
     const billInputStr=billInput.value;
     const peopleValueStr=PeopleInput.value;
     const customInputStr=CustomInput.value;
-    let selectedButtonTipStr = null; // Use null to indicate no button is active
+    let selectedButtonTipStr = null;
     const activeButton=document.querySelector('.tip-percent-btn.active');
     if(activeButton){
         selectedButtonTipStr=activeButton.dataset.tip;
     }
-
-    // console.log("Raw Input - Bill:", billInputStr);
-    // console.log("Raw Input - People:", peopleValueStr);
-    // console.log("Raw Input - Custom Tip:", customInputStr);
-    // console.log("Raw Input - Selected Button Tip:", selectedButtonTipStr);
-
     const billAmount=parseFloat(billInputStr);
     const NoOfPeople=parseFloat(peopleValueStr);
     const customTipPercent=parseFloat(customInputStr);
     const  selectedButtonTipPercent=selectedButtonTipStr?parseFloat(selectedButtonTipStr):null;
-
-    //INPUT  VALIDATION SECTION
-
     let isBillValid= !isNaN(billAmount) && billAmount >= 0;
     console.log(`Validation - Bill Amount (${billAmount}) Is Valid: ${isBillValid}`);
 
     let isTipValid=false;
-    
-
-    // console.log("Converted Number - Bill Amount:", billAmount, `(Type: ${typeof billAmount})`);
-    // console.log("Converted Number - Number of People:", NoOfPeople, `(Type: ${typeof NoOfPeople})`);
-    // console.log("Converted Number - Custom Tip %:", customTipPercent, `(Type: ${typeof customTipPercent})`);
-    // console.log("Converted Number - Selected Button Tip %:", selectedButtonTipPercent, `(Type: ${typeof selectedButtonTipPercent})`); // Will be null if no button active, NaN if button data invalid, or a number
-
     let actualPercent=0;
     if(!isNaN(customTipPercent) && customTipPercent >= 0){
         actualPercent=customTipPercent;
@@ -167,19 +151,7 @@ function calculateTip(){
              console.warn("Cannot calculate per-person amounts due to invalid Tip Percentage.");
         }
     }
-   
-   
-    // console.log({ // Logging as an object for better readability in console
-    //     billAmount,
-    //     NoOfPeople,
-    //     actualPercent,
-    //     totalTipAmount,
-    //     totalBillAmount,
-    //     tipPerPerson,
-    //     totalAmountPerPerson
-    // });
-
-    const formattedTipAmount=tipPerPerson.toFixed(2); // for after  two decimal points 
+    const formattedTipAmount=tipPerPerson.toFixed(2); 
     const formattedTotalAmount=totalAmountPerPerson.toFixed(2);
 
     const displayTipAmount = `₹${formattedTipAmount}`;
