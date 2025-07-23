@@ -4,23 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interactive-Tip-Calculator</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Main container for the entire calculator -->
     <div class="calculator-container">
-
-        <!-- Section for all user inputs -->
         <div class="input-section">
 
-            <!-- Bill Amount Input Group -->
             <div class="form-control">
                 <label for="bill">Bill</label>
                 <input type="number" id="bill" class="input-field" placeholder="0" min="0">
             </div>
-        <!-- End of Bill Amount Input Group -->
-        <!-- Tip selection and People input will go here later -->
+       
         <div class="form-control">
             <p>Select Tip %</p>
             <div class="tip-buttons-container">
@@ -30,59 +24,44 @@
                 <button type="button" class="tip-percent-btn" data-tip="20">20%</button>
                 <button type="button" class="tip-percent-btn" data-tip="25">25%</button>
                 <input type="number" id="custom-tip" class="input-field tip-custom-input" placeholder="Custom" min="0">
-              
-                <!-- Custom tip input will go here (next task) -->
             </div>
         </div>
-        <!-- Number of People -->
-        <!-- End of Tip Percentage Selection Group -->
-        <!-- Number of people -->
+       
         <div class="form-control">
             <label for="num-people">Number of People</label>
             <input type="number" id="num-people" class="input-field" placeholder="1" min="1">
         </div>
         </div>
-        <!-- End of input-section -->
-         <!-- Output/Results section will go here later -->
-
+        
         <div class="output-section">
             <div class="result-line">
-                <!-- Left side: Labels -->
+               
                 <div class="result-label">
                     <p>Tip Amount</p>
                     <span>/ person</span>
                 </div>
-                <!-- Right side: Calculated Value -->
-                <!-- The 'id' is crucial for JavaScript to update this value -->
                 <div class="result-value">
                     <span id="tip-amount-display">₹0.00</span>
                 </div>
             </div>
-            <!-- End of Tip Amount display area -->
             <div class="result-line">
-                 <!-- Left side: Labels -->
-                 <div class="result-label">
+                <div class="result-label">
                     <p>Total</p>
                     <span>/ person</span>
                 </div>
-                <!-- Right side: Calculated Value -->
-                <!-- The 'id' is crucial for JavaScript to update this value -->
+               
                 <div class="result-value">
                     <span id="total-amount-display">₹0.00</span>
                 </div>
             </div>
-            <!-- End of Total Amount display area -->
+           
             <button type="button" id="reset-button" class="reset-btn">RESET</button>
-             <!-- Added reset Button -->
+           
         </div>
-        <!-- End Of Output-section -->
-
     </div>
-    <!-- End of calculator-container -->
-
     <script src="script.js" defer></script>
     <footer class="footer">
-    <p style="font-family: monospace;">Made with 💻, ☕ and ❤️ — Manvith</p>
+        <p style="font-family: monospace;">Made with 💻, ☕ and ❤️ — Manvith</p>
     </footer>
 </body>
 </html>
